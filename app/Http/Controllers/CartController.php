@@ -62,14 +62,14 @@ class CartController extends Controller
         Session::save();
         $cart = Session::get('cart');
         $products = Product::whereIn('id', $cart)->get();
-        if(count($products)) {
-            $prod_exist = true;
-            foreach($products as $product) {
-                $product['image'] = glob('./images/' . $product->id . '.*')[0];
+        foreach($products as $product) {
+            if(isset(glob('./images/' . $product->id . '.*')[0])) {
+                $product->image = glob('./images/' . $product->id . '.*')[0];
+            } else {
+                $product->image = './images/0.png';
             }
-        } else {
-            $prod_exist = false;
         }
+//        var_dump(json_encode($products));
         return json_encode($products);
         
         
@@ -77,6 +77,9 @@ class CartController extends Controller
     
     public function email(Request $request) 
     {
+        return json_encode("bafta");
+        
+        
         $cart = Session::get('cart');
         $products = Product::whereIn('id', $cart)->get();
         $product_names = [];
@@ -87,6 +90,8 @@ class CartController extends Controller
         if($product_names == "") {
             return redirect("/cart");
         }
+        var_dump($request);
+        die();
         $this->validate($request, [
             'client' => 'required|min:3',
             'email' => 'required',

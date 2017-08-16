@@ -58,21 +58,28 @@ class HomeController extends Controller
     
     public function products() 
     {
+
         $cart = Session::get('cart');
+
         if(!isset($cart)) {
             $products = Product::all();
         } else {
             $products = Product::whereNotIn('id', $cart)->get();
         }
+
         if(count($products)) {
             $prod_exist = true;
             foreach($products as $product) {
-                $product['image'] = glob('./images/' . $product->id . '.*')[0];
+                if(isset(glob('./images/' . $product->id . '.*')[0])) {
+                    $product->image = glob('./images/' . $product->id . '.*')[0];
+                } else {
+                    $product->image = './images/0.png';
+                }
             }
         } else {
             $prod_exist = false;
         }
-        $some_other_var = "some_other_var";
+        
         return json_encode($products);
     }
     

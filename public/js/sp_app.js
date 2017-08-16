@@ -8,12 +8,15 @@ var changePage = function(page) {
     }
     page = page[0];
     $('.page').hide();
+    if(page == "") {
+        page = "index";
+    }
     if (page.length) {
         $('.' + page + 'Page').show();
     }
 //    console.log(link_input);
 //    console.log(page);
-    console.log(translate_func('Home page'));
+//    console.log(translate_func('Home page'));
     if (page == 'index') {
         $('.indexPage .productsTable').html('Loading');
         $.ajax({
@@ -99,8 +102,9 @@ var changePage = function(page) {
                         html += '</tr>';
                     });
                     html += '</table>';
-//                    console.log(html);
+                    $(".order_form").show();
                 } else {
+                    $(".order_form").hide();
                     var html = '<h2>The cart is empty.</h2>';
                 }
                 $('.cartPage .productsTable').html(html);
@@ -118,13 +122,35 @@ var getPage = function() {
         hash = hash.substr(1);
     }
 //    console.log(hash);
-//    console.log(hash.split('/'));
+    console.log(hash.split('/'));
+    console.log("get page");
 //    console.log(hash.split('/').shift());
     return hash.split('/');
 }
 
 $(document).ready(function() {
 //    console.log("in another file");
+    console.log("document ready");
+    $(".order_form button").click(function(event) {
+        event.preventDefault();
+        client = $( "input[name=client]" ).val();
+        email = $( "input[name=email]" ).val();
+        details = $( "textarea[name=details]" ).val();
+        data = {};
+        data['client'] = client;
+        data['email'] = email;
+        data['details'] = details;
+        console.log(data);
+        $.ajax({
+          url: "email",
+          type: "post",
+          dataType: 'json',
+          data: data,
+        }).done(function(data) {
+          window.location.href = "#index/mail=1";
+        });
+        console.log("am dat click pe button");
+    });
     var page = getPage();
     changePage(page ? page : 'index');
 });
