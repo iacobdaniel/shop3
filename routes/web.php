@@ -1,6 +1,8 @@
 <?php
 
 Route::get('/', 'HomeController@index');
+Route::get('/language', 'HomeController@language');
+Route::get('/home_products', 'HomeController@products');
 Route::get('/cart', 'CartController@index');
 Route::post('/email', 'CartController@email');
 Route::get('/login', 'LoginController@index');

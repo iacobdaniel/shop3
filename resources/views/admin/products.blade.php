@@ -1,11 +1,11 @@
 @extends ('layout')
 
 @section ('page_title')
-    <title>Shop2 - ADMIN - MANAGE PRODUCTS</title>
+    <title>Shop3 - ADMIN - MANAGE PRODUCTS</title>
 @endsection
 
 @section ('content')
-    <h1>Shop2 - ADMIN - MANAGE PRODUCTS</h1>
+    <h1>Shop3 - ADMIN - MANAGE PRODUCTS</h1>
     <?php if($prod_exist): ?>
     <table class="table product_table">
         <tr>

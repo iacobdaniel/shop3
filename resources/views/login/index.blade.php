@@ -1,11 +1,11 @@
 @extends ('layout')
 
 @section ('page_title')
-    <title>Shop2 - Login</title>
+    <title>Shop3 - Login</title>
 @endsection
 
 @section ('content')
-    <h1>Shop2 - Login</h1>
+    <h1>Shop3 - Login</h1>
     <p>
         <a href="/">Go to frontend</a>
     </p>

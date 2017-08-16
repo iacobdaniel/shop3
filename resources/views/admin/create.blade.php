@@ -1,11 +1,11 @@
 @extends ('layout')
 
 @section ('page_title')
-    <title>Shop2 - Create</title>
+    <title>Shop3 - Create</title>
 @endsection
 
 @section ('content')
-    <h1>Shop2 - Create new product</h1>
+    <h1>Shop3 - Create new product</h1>
     <form action="/create" method="post" enctype="multipart/form-data">
         {{ csrf_field() }}
         <label for="name">Name</label>

@@ -9,7 +9,7 @@ use App\Product;
 
 class HomeController extends Controller
 {
-    public function index() 
+    public function index_old() 
     {
         $lang = Input::get('lang');
         if(isset($lang)) {
@@ -49,5 +49,40 @@ class HomeController extends Controller
             'lang' => Session::get('lang'),
             'order_mail' => $order_mail
         ]);
+    }
+    
+    public function index() 
+    {
+        return view('products.index');
+    }
+    
+    public function products() 
+    {
+        $cart = Session::get('cart');
+        if(!isset($cart)) {
+            $products = Product::all();
+        } else {
+            $products = Product::whereNotIn('id', $cart)->get();
+        }
+        if(count($products)) {
+            $prod_exist = true;
+            foreach($products as $product) {
+                $product['image'] = glob('./images/' . $product->id . '.*')[0];
+            }
+        } else {
+            $prod_exist = false;
+        }
+        $some_other_var = "some_other_var";
+        return json_encode($products);
+    }
+    
+    public function language() {
+        $language = Session::get('lang');
+        $language = 'ro';
+        if(isset($language)) {
+            return json_encode($language);
+        } else {
+            return json_encode('en');
+        }
     }
 }

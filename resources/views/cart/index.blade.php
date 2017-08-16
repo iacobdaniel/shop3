@@ -1,11 +1,11 @@
 @extends ('layout')
 
 @section ('page_title')
-    <title>Shop2 - cart</title>
+    <title>Shop3 - cart</title>
 @endsection
 
 @section ('content')
-    <h1>Shop2 - Cart</h1>
+    <h1>Shop3 - Cart</h1>
     <a href="/"><?= translate('Go to homepage') ?></a>
     <?php if($prod_exist): ?>
     <table class="table product_table">

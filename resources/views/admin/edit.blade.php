@@ -5,11 +5,11 @@ use Illuminate\Support\Facades\Input;
 @extends ('layout')
 
 @section ('page_title')
-    <title>Shop2 - Edit product</title>
+    <title>Shop3 - Edit product</title>
 @endsection
 
 @section ('content')
-    <h1>Shop2 - Edit <?= " " ?></h1>
+    <h1>Shop3 - Edit <?= " " ?></h1>
     <form action="/update" method="post" enctype="multipart/form-data">
         {{ csrf_field() }}
         <input type="hidden" name="id" value="<?= $product->id ?>">
