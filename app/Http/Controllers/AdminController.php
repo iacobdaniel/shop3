@@ -15,15 +15,30 @@ class AdminController extends Controller
     public function products() 
     {
         $products = Product::all();
+//        if(count($products)) {
+//            $prod_exist = true;
+//        } else {
+//            $prod_exist = false;
+//        }
+//        return view('admin.products', [
+//            'products' => $products,
+//            'prod_exist' => $prod_exist
+//        ]);
+        
         if(count($products)) {
             $prod_exist = true;
+            foreach($products as $product) {
+                if(isset(glob('./images/' . $product->id . '.*')[0])) {
+                    $product->image = glob('./images/' . $product->id . '.*')[0];
+                } else {
+                    $product->image = './images/0.png';
+                }
+            }
         } else {
             $prod_exist = false;
         }
-        return view('admin.products', [
-            'products' => $products,
-            'prod_exist' => $prod_exist
-        ]);
+        
+        return json_encode($products);
     }
     
     public function create() 
@@ -31,7 +46,7 @@ class AdminController extends Controller
         return view('admin.create');
     }
     
-    public function edit($id) 
+    public function edit_old($id) 
     {
         $product = new Product;
         $product = Product::where('id', $id)->get();
@@ -47,4 +62,10 @@ class AdminController extends Controller
         ]);
     }
     
+    public function edit($id) 
+    {
+        $product = new Product;
+        $product = Product::where('id', $id)->get();
+        return json_encode($product->first());
+    }
 }

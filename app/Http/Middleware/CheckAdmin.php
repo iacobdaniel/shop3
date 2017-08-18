@@ -17,7 +17,7 @@ class CheckAdmin
     public function handle($request, Closure $next)
     {
         if(!Session::get('admin')) {
-            return redirect('/login');
+            return redirect('/#login');
         }
         return $next($request);
     }

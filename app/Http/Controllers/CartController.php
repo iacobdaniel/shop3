@@ -77,7 +77,7 @@ class CartController extends Controller
     
     public function email(Request $request) 
     {
-        return json_encode("bafta");
+//        return json_encode("bafta");
         
         
         $cart = Session::get('cart');
@@ -88,10 +88,11 @@ class CartController extends Controller
         }
         $product_names = implode(", ", $product_names);
         if($product_names == "") {
-            return redirect("/cart");
+            return redirect("/#cart");
         }
-        var_dump($request);
-        die();
+//        return $request;
+//        var_dump($request);
+//        die();
         $this->validate($request, [
             'client' => 'required|min:3',
             'email' => 'required',
@@ -102,6 +103,6 @@ class CartController extends Controller
         $email = strip_tags(request('email'));
         $details = strip_tags(request('details'));
         \Mail::to($email)->send(new Order($client, $email, $details, $product_names));
-        return redirect("/?mail=1");
+        return json_encode(["success" => "true"]);
     }
 }

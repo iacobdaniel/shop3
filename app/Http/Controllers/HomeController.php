@@ -92,4 +92,11 @@ class HomeController extends Controller
             return json_encode('en');
         }
     }
+    
+    public function setLanguage(Request $request) {
+        Session::put('lang', $request['lang']);
+        Session::save();
+        $language = Session::get('lang');
+        return json_encode($language);
+    }
 }

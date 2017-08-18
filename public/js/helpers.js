@@ -1,22 +1,20 @@
 //de adus cumva variabila de limba din sesiune
-var raspuns = "";
+window.language = "en";
 // mai bine o faci altfel, cu scriere, citire stergere in fisier, salvare direct intr-o variabila javascript, altfel se trimit prea multe request-uri asincrone, e sincron, e o nebunie
 function translate_func(text) {
-    $.ajax({
-        url: '/language',
-        dataType: 'JSON',
-        success: function(language) {
-            if(language == 'ro') {
-                return ro_phrases[text];
-                console.log(ro_phrases);
-            } else if(language == 'de') {
-                return de_phrases[text];
-                console.log(de_phrases);
-            } else {
-                return text;
-                console.log('am folosit default-ul');
-            }
+    if(window.language == 'ro') {
+        if(ro_phrases[text] == null) {
+            return text;
+        } else {
+            return ro_phrases[text];
         }
-    });
-    return raspuns;
+    } else if(window.language == 'de') {
+        if(de_phrases[text] == null) {
+            return text;
+        } else {
+            return de_phrases[text];
+        }
+    } else {
+        return text;
+    }
 }

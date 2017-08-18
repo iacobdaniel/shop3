@@ -47,9 +47,11 @@ class LoginController extends Controller
         }
         Session::save();
         if(Session::get('admin')) {
-            return redirect('/admin');
+//            return redirect('/admin');
+            return json_encode(["success" => "true"]);
         } else {
-            return redirect('/login?error=1');
+//            return redirect('/login?error=1');
+            return json_encode(["success" => "false"]);
         }
     }
     
@@ -58,5 +60,10 @@ class LoginController extends Controller
         Session::put('admin', false);
         Session::save();
         return redirect('/login');
+    }
+    
+    public function getAdmin() 
+    {
+        return json_encode(Session::get('admin'));
     }
 }
