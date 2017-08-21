@@ -47,10 +47,8 @@ class LoginController extends Controller
         }
         Session::save();
         if(Session::get('admin')) {
-//            return redirect('/admin');
             return json_encode(["success" => "true"]);
         } else {
-//            return redirect('/login?error=1');
             return json_encode(["success" => "false"]);
         }
     }

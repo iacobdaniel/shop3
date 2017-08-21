@@ -15,16 +15,6 @@ class AdminController extends Controller
     public function products() 
     {
         $products = Product::all();
-//        if(count($products)) {
-//            $prod_exist = true;
-//        } else {
-//            $prod_exist = false;
-//        }
-//        return view('admin.products', [
-//            'products' => $products,
-//            'prod_exist' => $prod_exist
-//        ]);
-        
         if(count($products)) {
             $prod_exist = true;
             foreach($products as $product) {
@@ -37,7 +27,6 @@ class AdminController extends Controller
         } else {
             $prod_exist = false;
         }
-        
         return json_encode($products);
     }
     

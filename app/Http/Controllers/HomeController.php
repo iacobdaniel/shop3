@@ -9,48 +9,6 @@ use App\Product;
 
 class HomeController extends Controller
 {
-    public function index_old() 
-    {
-        $lang = Input::get('lang');
-        if(isset($lang)) {
-            $languages = explode(',', LANGUAGES);
-            if(in_array($lang, $languages)) {
-                Session::put('lang', $lang);
-            } else {
-                Session::put('lang', 'en');
-            }
-        } else {
-            Session::put('lang', 'en');
-        }
-        Session::save();
-        
-        $order_mail = Input::get('mail');
-        if(isset($order_mail)) {
-            if($order_mail == '1') {
-                $order_mail = true;
-            } else {
-                $order_mail = true;
-            }
-        }
-        $cart = Session::get('cart');
-        if(!isset($cart)) {
-            $products = Product::all();
-        } else {
-            $products = Product::whereNotIn('id', $cart)->get();
-        }
-        if(count($products)) {
-            $prod_exist = true;
-        } else {
-            $prod_exist = false;
-        }
-        return view('products.index', [
-            'products' => $products,
-            'prod_exist' => $prod_exist,
-            'lang' => Session::get('lang'),
-            'order_mail' => $order_mail
-        ]);
-    }
-    
     public function index() 
     {
         return view('products.index');
@@ -58,15 +16,12 @@ class HomeController extends Controller
     
     public function products() 
     {
-
         $cart = Session::get('cart');
-
         if(!isset($cart)) {
             $products = Product::all();
         } else {
             $products = Product::whereNotIn('id', $cart)->get();
         }
-
         if(count($products)) {
             $prod_exist = true;
             foreach($products as $product) {
@@ -79,7 +34,6 @@ class HomeController extends Controller
         } else {
             $prod_exist = false;
         }
-        
         return json_encode($products);
     }
     
