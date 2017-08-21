@@ -85,6 +85,38 @@ class ProductController extends Controller
 //        }
         return json_encode(["success" => "true"]);
     }
+
+    public function image_upload(Request $request) {
+        
+        $this->validate($request, [
+            'nume_imagine' => 'required'
+        ]);
+        
+        $image = Input::file('file');
+        if(!isset($image)) {
+            return back()->withInput();
+        }
+        $upload_ok = true;
+        $extension = $image->getClientOriginalExtension();
+        if(!($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg')) {
+            $upload_ok = false;
+        }
+        $resize = false;
+        if($image->getClientSize() > 200000) {
+            $resize = true;
+        }
+        if(!$upload_ok) {
+            return back()->withInput();
+        }
+        $img_insert = Image::make($image->getRealPath());
+        
+        if($resize) {
+            $img_insert->resize(1024, 768)->save(public_path() . '/images/' . 'img_noua' . '.' . $image->getClientOriginalExtension());
+        } else {
+            $img_insert->save(public_path() . '/images/' . 'img_noua' . '.' . $image->getClientOriginalExtension());
+        }
+        return redirect('/'); 
+    }
     
     public function update_old(Request $request) 
     {

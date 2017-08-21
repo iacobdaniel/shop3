@@ -17,4 +17,5 @@ Route::get('/products/create', 'AdminController@create')->middleware('admin');
 Route::get('/products/edit/{id}', 'AdminController@edit')->middleware('admin');
 Route::post('/create', 'ProductController@create')->middleware('admin');
 Route::post('/update', 'ProductController@update')->middleware('admin');
+Route::post('/image_upload', 'ProductController@image_upload')->middleware('admin');
 Route::get('/products/delete/{id}', 'ProductController@delete')->middleware('admin');

@@ -328,6 +328,8 @@ var PageParams = function(hash) {
     return hash.split('/');
 }
 
+iframe_loaded = 0;
+
 $(document).ready(function() {
 //    console.log("in another file");
 //    console.log("document ready");
@@ -453,7 +455,7 @@ $(document).ready(function() {
                 }
               },
                 error: function(data) {
-                    var errors = data.responseJSON;
+                  var errors = data.responseJSON;
                   console.log("there are errors in the processing of your order form, next console log should print out");
                   console.log(errors);
                   $(".edit_create_product_form_errors ul").html('');
@@ -487,6 +489,70 @@ $(document).ready(function() {
         }
     });
     
+//    $('.image_upload_form input[name="image"]').change(function(event) {
+//        files = event.target.files;
+//    });
+//    
+    
+    
+    $("iframe").load(function() {
+        // ok , now you know that the file is uploaded , you can do what you want , for example tell the user that the file is uploaded 
+        
+        if(iframe_loaded == 1) {
+            console.log("The file is uploaded");
+            $('iframe #myForm').removeAttr('target');
+            $('iframe #myForm button').click();
+            
+        }
+        
+        if(iframe_loaded == 0) {
+            iframe_loaded = 1;
+        }
+        
+//        name = $( "#myForm input[name=nume_imagine]" ).val();
+//        token = $( "#myForm input[name=_token]" ).val();
+//        data = {};
+//        data['name'] = name;
+//        data['_token'] = token;
+        
+//        $.ajax({
+//          url: "image_upload",
+//          type: "post",
+//          dataType: 'json',
+//          data: data,
+//            success: function(data) {
+//                console.log(data);
+////                if(data['success'] == "true") {
+////                    window.location.href = "/#admin";
+////                } else {
+////                    window.location.href = "/#login";
+////                }
+//            }, 
+//            error: function(data) {
+//              var errors = data.responseJSON;
+//              console.log("there are errors in the processing of your order form, next console log should print out");
+//              console.log(errors);
+////              $(".login_form_errors ul").html('');
+////              $.each(errors, function(index, value) {
+////                  $(".login_form_errors ul").append('<li>' + value + '</li>');
+////              });
+//          }
+//        });
+        
+//        $.post('image_upload', null, function(attachment) {
+//            console.log(attachment.name);
+//            console.log(attachment.id);
+//            
+//        }, 'json'); 
+        // or you can has your own technique to display the uploaded file name + id ? 
+//        $.post('http://example.com/file-upload-service?do=getLastFile',null,function(attachment){
+//
+//           // add the last uploaded file , so the user can see the uploaded files
+//           $("#ajaxResultTest").append("<h4>" + attachment.name + ":" + attachment.id "</h4>");
+//
+//        },'json');
+    });
+    
     var page = getPage();
     changePage(page ? page : 'index');
 });
@@ -503,8 +569,21 @@ $(window).bind('hashchange', function() {
     changePage(getPage());
 });
 
+//nu cred ca e calea buna, in primul rand mai bine o iei babeste si vezi daca s-a urcat ceva si eventual astepti o confirmare dupa. La ce foloseste iframe-ul? nu se zice nicaieri.
 
 function startUpload(){
     document.getElementById('f1_upload_process').style.visibility = 'visible';
     return true;
+}
+
+function stopUpload(success){
+      var result = '';
+      if (success == 1) {
+         $('#result').html('<span class="msg">The file was uploaded successfully!<\/span><br/><br/>');
+      }
+      else {
+         $('#result').html('<span class="emsg">There was an error during file upload!<\/span><br/><br/>');
+      }
+      $('f1_upload_process').hide();
+      return true;   
 }

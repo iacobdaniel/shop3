@@ -17,6 +17,32 @@
         <div class="productsTable"></div>
         <a class="big_button" href="#cart" onclick="changePage('cart')">Cart</a>
         <a class="big_button" href="#login" onclick="changePage('login')">Login as admin</a>
+        <?php /*
+        <form class="image_upload_form" action="/image_upload" method="post" enctype="multipart/form-data">
+            {{ csrf_field() }}
+            <input required placeholder="<?php echo translate("Nume imagine"); ?>" type="text" name="nume_imagine">
+            <br>
+            <br>
+            <input required type="file" name="image">
+            <br>
+            <br>
+            <button type="submit"><?php echo translate("Upload now!"); ?></button>
+        </form>
+        */ ?>
+        
+        <iframe id="uploadTrg" name="uploadTrg" frameborder="0" scrolling="yes"></iframe>
+
+        <form id="myForm" action="image_upload" method="post" enctype="multipart/form-data"  target="uploadTrg">
+            {{ csrf_field() }}
+            <input required placeholder="<?php echo translate("Nume imagine"); ?>" type="text" name="nume_imagine">
+            <br>
+            <br>
+            File: <input type="file" name="file">
+            <input type="submit" value="Submit" id="submitBtn"/>
+
+        </form>
+        
+        
     </div>
 
     <div class="page cartPage" style="display: none;">
@@ -77,9 +103,6 @@
         <h1>Shop2 - ADMIN - MANAGE PRODUCTS</h1>
         <div class="productsTable"></div>
         <div class="product_form_admin" style="display: none">
-            
-            <p id="f1_upload_process">Loading...<br/><img src="loader.gif" /></p>
-            <p id="result"></p>
             
             <form class="edit_create_product_form" action="/create" method="post" enctype="multipart/form-data" target="upload_target">
                 {{ csrf_field() }}

@@ -86,3 +86,18 @@ img {
     margin: 10px;
     border: 1px solid red;
 }
+
+
+
+
+#f1_upload_process{
+   z-index:100;
+   position:absolute;
+   visibility:hidden;
+   text-align:center;
+   width:400px;
+   margin:0px;
+   padding:0px;
+   background-color:#fff;
+   border:1px solid #ccc;
+}
