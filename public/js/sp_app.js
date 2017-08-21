@@ -329,6 +329,7 @@ var PageParams = function(hash) {
 }
 
 iframe_loaded = 0;
+iframe_product_loaded = 0;
 
 $(document).ready(function() {
 //    console.log("in another file");
@@ -428,7 +429,8 @@ $(document).ready(function() {
     });
     
    
-    
+    /* old ajax function for create or edit products /
+    /*
     $(".edit_create_product_form button").click(function(event) {
         event.preventDefault();
         id = $( ".edit_create_product_form input[name=id]" ).val();
@@ -488,6 +490,8 @@ $(document).ready(function() {
             });
         }
     });
+    */
+    
     
 //    $('.image_upload_form input[name="image"]').change(function(event) {
 //        files = event.target.files;
@@ -495,13 +499,13 @@ $(document).ready(function() {
 //    
     
     
-    $("iframe").load(function() {
+    $("iframe#uploadTrg").load(function() {
         // ok , now you know that the file is uploaded , you can do what you want , for example tell the user that the file is uploaded 
         
         if(iframe_loaded == 1) {
             console.log("The file is uploaded");
-            $('iframe #myForm').removeAttr('target');
-            $('iframe #myForm button').click();
+            $('iframe#uploadTrg #myForm').removeAttr('target');
+            $('iframe#uploadTrg #myForm button').click();
             
         }
         
@@ -553,6 +557,33 @@ $(document).ready(function() {
 //        },'json');
     });
     
+    $("iframe#edit_create_product_iframe").load(function() {
+//        if(iframe_product_loaded == 1) {
+            console.log("The file is uploaded");
+            $('iframe#edit_create_product_iframe .edit_create_product_form').removeAttr('target');
+            $('iframe#edit_create_product_iframe .edit_create_product_form button').click();
+            $('.edit_create_product_form_errors').remove();
+            $('.alert-success').remove();
+            $('.edit_create_product_form').after($('iframe#edit_create_product_iframe').contents().find('#content').html());
+            console.log($('iframe#edit_create_product_iframe').contents().find('#content').html());
+//            console.log($('iframe#edit_create_product_iframe #content').html());
+//            console.log($('#content').contents().html());
+//            console.log($('#content').html());
+            if($('iframe#edit_create_product_iframe').contents().find('#content > p').html() == 'success') {
+                setTimeout(function() {
+                    $('.edit_create_product_form_errors').remove();
+                    $('.alert-success').remove();
+                    $('.edit_create_product_form')[0].reset();
+                    window.location.href = "/#products";
+                }, 5000);
+            }
+//        }
+        
+//        if(iframe_product_loaded == 0) {
+//            iframe_product_loaded = 1;
+//        }
+    });
+    
     var page = getPage();
     changePage(page ? page : 'index');
 });
@@ -568,22 +599,3 @@ $(document).on('click', 'a.rmv_cart_btn', function() {
 $(window).bind('hashchange', function() {
     changePage(getPage());
 });
-
-//nu cred ca e calea buna, in primul rand mai bine o iei babeste si vezi daca s-a urcat ceva si eventual astepti o confirmare dupa. La ce foloseste iframe-ul? nu se zice nicaieri.
-
-function startUpload(){
-    document.getElementById('f1_upload_process').style.visibility = 'visible';
-    return true;
-}
-
-function stopUpload(success){
-      var result = '';
-      if (success == 1) {
-         $('#result').html('<span class="msg">The file was uploaded successfully!<\/span><br/><br/>');
-      }
-      else {
-         $('#result').html('<span class="emsg">There was an error during file upload!<\/span><br/><br/>');
-      }
-      $('f1_upload_process').hide();
-      return true;   
-}

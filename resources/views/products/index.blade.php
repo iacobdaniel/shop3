@@ -17,32 +17,6 @@
         <div class="productsTable"></div>
         <a class="big_button" href="#cart" onclick="changePage('cart')">Cart</a>
         <a class="big_button" href="#login" onclick="changePage('login')">Login as admin</a>
-        <?php /*
-        <form class="image_upload_form" action="/image_upload" method="post" enctype="multipart/form-data">
-            {{ csrf_field() }}
-            <input required placeholder="<?php echo translate("Nume imagine"); ?>" type="text" name="nume_imagine">
-            <br>
-            <br>
-            <input required type="file" name="image">
-            <br>
-            <br>
-            <button type="submit"><?php echo translate("Upload now!"); ?></button>
-        </form>
-        */ ?>
-        
-        <iframe id="uploadTrg" name="uploadTrg" frameborder="0" scrolling="yes"></iframe>
-
-        <form id="myForm" action="image_upload" method="post" enctype="multipart/form-data"  target="uploadTrg">
-            {{ csrf_field() }}
-            <input required placeholder="<?php echo translate("Nume imagine"); ?>" type="text" name="nume_imagine">
-            <br>
-            <br>
-            File: <input type="file" name="file">
-            <input type="submit" value="Submit" id="submitBtn"/>
-
-        </form>
-        
-        
     </div>
 
     <div class="page cartPage" style="display: none;">
@@ -104,38 +78,34 @@
         <div class="productsTable"></div>
         <div class="product_form_admin" style="display: none">
             
-            <form class="edit_create_product_form" action="/create" method="post" enctype="multipart/form-data" target="upload_target">
+            <iframe id="edit_create_product_iframe" name="edit_create_product_iframe" height="0" width="0" frameborder="0" scrolling="yes"></iframe>
+            
+            <form class="edit_create_product_form" action="/create" method="post" enctype="multipart/form-data" target="edit_create_product_iframe">
                 {{ csrf_field() }}
                 <input type="hidden" name="id" value="">
                 <label for="name">Name</label>
                 <br>
-                <input required type="text" name="name" value="">
+                <input type="text" name="name" value="">
                 <br>
                 <br>
                 <label for="price">Price</label>
                 <br>
-                <input required type="number" name="price" value="">
+                <input type="number" name="price" value="">
                 <br>
                 <br>
                 <label for="description">Description</label>
                 <br>
-                <textarea required type="text" name="description"></textarea>
+                <textarea type="text" name="description"></textarea>
                 <br>
                 <br>
                 <label for="image">Upload image (only PNG or JPEG/JPG file types with a maximum dimension of 200kB)</label>
                 <br>
-                <input required type="file" name="image_upload" id="image_upload">
+                <input type="file" name="image_upload" id="image_upload">
                 <br>
                 <br>
                 <button class="add_to_cart_btn" type="submit">Save</button>
-            </form>
+            </form>                
             
-            <iframe id="upload_target" name="upload_target" src="#" style="width:0;height:0;border:0px solid #fff;"></iframe>                 
-            
-            <div class="alert alert-danger edit_create_product_form_errors">
-                <ul>
-                </ul>
-            </div>
             <a class="big_button" href="#products" onclick="changePage('products')">All products</a>
         </div>
         
