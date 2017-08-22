@@ -47,9 +47,9 @@ class LoginController extends Controller
         }
         Session::save();
         if(Session::get('admin')) {
-            return json_encode(["success" => "true"]);
+            return json_encode(['success' => 'true']);
         } else {
-            return json_encode(["success" => "false"]);
+            return json_encode(['success' => 'false']);
         }
     }
     

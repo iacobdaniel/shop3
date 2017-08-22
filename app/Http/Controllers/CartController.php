@@ -49,9 +49,9 @@ class CartController extends Controller
         foreach($products as $product) {
             $product_names[] = $product->name;
         }
-        $product_names = implode(", ", $product_names);
-        if($product_names == "") {
-            return redirect("/#cart");
+        $product_names = implode(', ', $product_names);
+        if($product_names == '') {
+            return redirect('/#cart');
         }
         $this->validate($request, [
             'client' => 'required|min:3',
@@ -63,6 +63,6 @@ class CartController extends Controller
         $email = strip_tags(request('email'));
         $details = strip_tags(request('details'));
         \Mail::to($email)->send(new Order($client, $email, $details, $product_names));
-        return json_encode(["success" => "true"]);
+        return json_encode(['success' => 'true']);
     }
 }
