@@ -279,18 +279,13 @@ var PageParams = function(hash) {
 }
 
 $(document).ready(function() {
-    
     $(".order_form button").click(function(event) {
         event.preventDefault();
-        client = $( "input[name=client]" ).val();
-        email = $( "input[name=email]" ).val();
-        details = $( "textarea[name=details]" ).val();
-        token = $( "input[name=_token]" ).val();
         data = {};
-        data['client'] = client;
-        data['email'] = email;
-        data['details'] = details;
-        data['_token'] = token;
+        data['client'] = $( "input[name=client]" ).val();
+        data['email'] = $( "input[name=email]" ).val();
+        data['details'] = $( "textarea[name=details]" ).val();
+        data['_token'] = $( "input[name=_token]" ).val();
         $.ajax({
             url: "email",
             type: "post",
@@ -316,13 +311,10 @@ $(document).ready(function() {
     
     $(".login_form button").click(function(event) {
         event.preventDefault();
-        user = $( ".login_form input[name=user]" ).val();
-        password = $( ".login_form input[name=password]" ).val();
-        token = $( ".login_form input[name=_token]" ).val();
         data = {};
-        data['user'] = user;
-        data['password'] = password;
-        data['_token'] = token;
+        data['user'] = $( ".login_form input[name=user]" ).val();
+        data['password'] = $( ".login_form input[name=password]" ).val();
+        data['_token'] = $( ".login_form input[name=_token]" ).val();
         $.ajax({
             url: "login",
             type: "post",
@@ -333,6 +325,9 @@ $(document).ready(function() {
                     window.location.href = "/#admin";
                 } else {
                     window.location.href = "/#login";
+                    $(".login_form").after('<div class="login_fail"><p>Username or password incorrect.</p></div>');
+                    console.log("mail login fail");
+                    $(".login_fail").delay(5000).fadeOut(300);
                 }
             }, 
             error: function(data) {

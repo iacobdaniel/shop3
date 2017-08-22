@@ -23,6 +23,7 @@
         <h1>Shop3 - <?= translate('Cart') ?></h1>
         <div class="productsTable"></div>
         <form class="order_form" action="/email" method="post" style="display: none;">
+            <h2><?= translate('Order now') ?></h2>
             {{ csrf_field() }}
             <input required placeholder="<?= translate("Name"); ?>" type="text" name="client">
             <br>
@@ -74,12 +75,10 @@
     </div>
 
     <div class="page productsPage" style="display: none;">
-        <h1>Shop2 - ADMIN - MANAGE PRODUCTS<?= translate("Order now!"); ?></h1>
+        <h1>Shop3 - ADMIN - <?= translate("MANAGE PRODUCTS"); ?></h1>
         <div class="productsTable"></div>
         <div class="product_form_admin" style="display: none">
-            
             <iframe id="edit_create_product_iframe" name="edit_create_product_iframe" height="0" width="0" frameborder="0" scrolling="yes"></iframe>
-            
             <form class="edit_create_product_form" action="/create" method="post" enctype="multipart/form-data" target="edit_create_product_iframe">
                 {{ csrf_field() }}
                 <input type="hidden" name="id" value="">
@@ -105,9 +104,7 @@
                 <br>
                 <button class="add_to_cart_btn" type="submit"><?= translate("Save"); ?></button>
             </form>                
-            
             <a class="big_button" href="#products" onclick="changePage('products')"><?= translate("All products"); ?></a>
         </div>
-        
     </div>
 @endsection
